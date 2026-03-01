@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ai-document-assistant-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./documents.db
+      - key: MAX_FILE_SIZE_MB
+        value: "20"
+      - key: UPLOAD_DIR
+        value: uploads
